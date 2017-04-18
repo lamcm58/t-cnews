@@ -1,0 +1,38 @@
+<?php $__env->startSection('content'); ?>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Kiểm tra bài viết</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                    <h2><?php echo e($news->news_title); ?></h2>
+                    <div>
+                        <span><u>
+                        <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($news->news_cate_id == $cat['id']): ?>
+                            <?php echo e($cat['sub_category_name']); ?>
+
+                            <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </u></span> |
+                        <span><?php echo e(date('d-m-Y H:i:s', strtotime($news->created_at))); ?></span></div>
+                    </div>
+                    <img alt="" src="<?php echo e(asset('image/images')); ?>/<?php echo e($news->news_images); ?>">
+                    <div><?php echo e($news->news_content); ?></div>
+                </div>
+                <form action="" method="POST">
+                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                    <input type="hidden" name="news_id" value="<?php echo e($news->id); ?>">
+                    <button type="submit" class="btn btn-primary">Duyệt</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

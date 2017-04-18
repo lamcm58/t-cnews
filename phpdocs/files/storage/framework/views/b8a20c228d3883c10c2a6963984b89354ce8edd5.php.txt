@@ -1,0 +1,47 @@
+<?php $__env->startSection('content'); ?>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><?php echo $news->news_title; ?></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                    <div>
+                        <span><u>
+                        <?php $__currentLoopData = $cats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($news->news_cate_id == $cat['id']): ?>
+                            <?php echo e($cat['sub_category_name']); ?>
+
+                            <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </u></span> |
+                        <span><?php echo e(date('d-m-Y H:i:s', strtotime($news->created_at))); ?></span></div>
+                    </div>
+                    <div><?php echo $news->news_description; ?></div>
+                    <br/>
+                    <img alt="" src="<?php echo e(asset('image/images')); ?>/<?php echo e($news->news_images); ?>">
+                    <br/><br/>
+                    <div><?php echo $news->news_content; ?></div>
+                </div>
+                <?php if(Auth::user()->user_role == 1): ?>
+                    <?php if($news->news_is_check == 0): ?>
+                    <form action="<?php echo e(route('news.check', $news->id)); ?>" method="POST">
+                        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                        <input type="hidden" name="news_id" value="<?php echo e($news->id); ?>">
+                        <button type="submit" class="btn btn-primary">Duyệt</button>
+                        <a href="<?php echo e(route('news.index')); ?>" class="btn btn-default">Quay lại danh sách</a>
+                    </form>
+                    <?php endif; ?>
+                <?php else: ?>
+                <a href="<?php echo e(route('news.index')); ?>" class="btn btn-default">Quay lại danh sách</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

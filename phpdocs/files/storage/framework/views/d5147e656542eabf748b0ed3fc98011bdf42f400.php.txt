@@ -1,0 +1,82 @@
+<?php $__env->startSection('content'); ?>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>
+                            Danh sách bài viết
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table id="datatable-responsive"
+                            class="table table-striped table-bordered"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề</th>
+                                    <th>Mô tả</th>
+                                    <th>Ảnh nhỏ</th>
+                                    <th>Loại tin</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td><a href="<?php echo e(route('news.view', $data['news_slug'])); ?>"><?php echo $data['news_title']; ?></a></td>
+                                    <td><?php echo $data['news_description']; ?></td>
+                                    <td><img alt="" src="<?php echo e(Image::url(asset('image/imageThumbnail') . '/' . $data['news_image_thumbnail'], ['width' => 100, 'height' => 100, 'crop' => true])); ?>"></td>
+                                    <td>
+                                    <?php $__currentLoopData = $sub_cate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($cate['id'] == $data['news_cate_id']): ?>
+                                            <?php echo e($cate['sub_category_name']); ?>
+
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </td>
+                                    <td><img alt="" src="<?php echo e(Image::url(asset('image/images') . '/' . $data['news_images'], ['width' => 150, 'height' => 150, 'crop' => true])); ?>" width="100"></td>
+                                    <td><?php echo e(date('d-m-Y', strtotime($data['created_at']))); ?></td>
+                                    <th>
+                                        <span>
+                                            <a href="<?php echo e(route('news.edit', $data['id'])); ?>" class="btn btn-warning btn-xs">
+                                                <i class="fa fa-edit"></i> Sửa
+                                            </a>
+                                        </span>
+                                        <span>
+                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#formDelete-<?php echo e($data['id']); ?>">
+                                                <i class="fa fa-trash"></i> Xóa
+                                            </button>
+                                            <?php echo $__env->make('admin.news.delete', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                        </span>
+                                        <span>
+                                        <?php if(Auth::user()->user_role == 1): ?>
+                                            <?php if($data['news_is_check'] == 0): ?>
+                                                <a href="" class="btn btn-primary btn-xs disabled">
+                                                    <i class="fa fa-close"></i> Chưa duyệt
+                                                </a>
+                                            <?php else: ?>
+                                                <a href="" class="btn btn-success btn-xs disabled">
+                                                    <i class="fa fa-check"></i> Đã duyệt
+                                                </a>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                        </span>
+                                    </th>
+                                </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

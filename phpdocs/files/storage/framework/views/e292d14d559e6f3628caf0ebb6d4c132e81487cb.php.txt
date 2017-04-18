@@ -1,0 +1,35 @@
+<div class="header-menu thisisfixed">
+    <div class="wrapper">
+        <ul class="menu main-menu">
+            <?php $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cate): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li id="menu-item-7"
+                class="has-ot-mega-menu   no-description menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="<?php echo e(route('cate', $cate['category_slug'])); ?>"><?php echo e($cate['category_name']); ?><span>&nbsp;</span></a>
+            </li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+        <div class="right menu-search">
+            <form method="POST" action="<?php echo e(route('search')); ?>" name="searchform">
+                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                <input type="text" value="" placeholder="Tìm kiếm.." name="key"/>
+                <input type="submit" class="search-button" value="&nbsp;" />
+            </form>
+        </div>
+        <div class="clear-float"></div>
+    </div>
+    <!-- END .header-menu -->
+</div>
+<!-- BEGIN .header-undermenu -->
+<div class="header-undermenu">
+        <div class="wrapper">
+            <ul class="secondary-menu">
+                <?php $__currentLoopData = $subCate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li class="menu-item menu-item-object-post_tag"><a
+                    href="<?php echo e(route('subCate', $sub['sub_cate_slug'])); ?>"><i><?php echo e($sub['sub_category_name']); ?></i></a>
+                </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <div class="clear-float"></div>
+        </div>
+        <!-- END .header-undermenu -->
+    </div>

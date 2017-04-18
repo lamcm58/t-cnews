@@ -1,0 +1,32 @@
+<div  id="formCheck-<?php echo e($data['id']); ?>" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Duyệt bình luận</h4>
+            </div>
+            <form class="form-horizontal form-label-left" action="<?php echo e(route('comment.check', $data['id'])); ?>" method="POST">
+                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                <div class="modal-body">
+                    <h4>
+                    <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($item['id'] == $data['comment_news_id']): ?>
+                            <?php echo e($item['news_title']); ?>
+
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </h4>
+                    <div><strong>Người bình luận:</strong> <?php echo e($data['comment_name']); ?></div>
+                    <div><strong>Nội dung:</strong> <?php echo e($data['comment_content']); ?></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Duyệt</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /modals -->
+

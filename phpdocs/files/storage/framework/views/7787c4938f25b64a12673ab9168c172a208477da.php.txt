@@ -1,0 +1,122 @@
+<?php $__env->startSection('content'); ?>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-10 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Thêm quảng cáo</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form class="form-horizontal form-label-left" 
+                            action="<?php echo e(route('advertisements.store')); ?>" method="POST" 
+                            enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                            <div class="form-group <?php echo e(($errors->first('adv_company'))?'has-error':''); ?>">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên công ty
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" name="adv_company" class="form-control" 
+                                        placeholder="Nhập tên loại tin" value="<?php echo e(old('adv_company')); ?>">
+                                    <?php if($errors->first('adv_company')): ?>
+                                        <p class="text-danger"><?php echo e($errors->first('adv_company')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e(($errors->first('adv_url'))?'has-error':''); ?>">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Ảnh quảng cáo<span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="file" name="adv_url">
+                                    <div id="image_preview">
+                                        <img id="previewing" />
+                                    </div>
+                                    <?php if($errors->first('adv_url')): ?>
+                                        <p class="text-danger"><?php echo e($errors->first('adv_url')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e(($errors->first('adv_position'))?'has-error':''); ?>">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Vị trí<span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <span>
+                                        <input type="radio" value="header" id="optionsRadios1" 
+                                            name="adv_position"
+                                            <?php echo e((in_array('header', $position)) ? 'disabled' : ''); ?>>
+                                            Header
+                                    </span>
+                                    <span>
+                                        <input type="radio" value="sidebar" id="optionsRadios1" 
+                                            name="adv_position"
+                                            <?php echo e((in_array('sidebar', $position)) ? 'disabled' : ''); ?>>
+                                            Sidebar
+                                    </span>
+                                    <span>
+                                        <input type="radio" value="content" id="optionsRadios1" 
+                                            name="adv_position"
+                                            <?php echo e((in_array('content', $position)) ? 'disabled' : ''); ?>>Content
+                                    </span>
+                                    <?php if($errors->first('adv_position')): ?>
+                                        <p class="text-danger"><?php echo e($errors->first('adv_position')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group <?php echo e(($errors->first('url_company'))?'has-error':''); ?>">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Trang web công ty<span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" name="url_company" class="form-control" 
+                                        placeholder="Nhập địa chỉ website công ty"
+                                        value="<?php echo e(old('adv_company')); ?>">
+                                    <?php if($errors->first('url_company')): ?>
+                                        <p class="text-danger"><?php echo e($errors->first('url_company')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Ngày hết hạn quảng cáo<span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <fieldset>
+                                        <input type="text" class="form-control has-feedback-left" 
+                                            id="expired_day" placeholder="" name="expired_day">
+                                        <span class="fa fa-calendar-o form-control-feedback left" 
+                                            aria-hidden="true">
+                                        </span>
+                                        <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                    <a href="<?php echo e(URL::previous()); ?>" class="btn btn-default">Hủy</a>
+                                    <button type="submit" class="btn btn-success">Thêm mới</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<script>
+  $("input#expired_day").datepicker({
+    minDate: 0,
+    dateFormat: 'dd-mm-yy',
+  }).datepicker("setDate", new Date());
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

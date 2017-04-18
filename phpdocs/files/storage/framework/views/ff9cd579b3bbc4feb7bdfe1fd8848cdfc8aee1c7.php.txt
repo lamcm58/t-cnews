@@ -1,0 +1,65 @@
+<?php $__env->startSection('title'); ?>
+    <title>t-cnews.cowell</title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="main-content-left">
+    <!-- BEGIN .content-panel -->
+    <div class="content-panel">
+        <div class="panel-content">
+            <div class="review-block">
+                <?php if(count($newsCate) > 0): ?>
+                <?php $__currentLoopData = $newsCate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <!-- BEGIN .review-item -->
+                <div class="review-item">
+                    <div class="review-image">
+                        <a href="<?php echo e(route('single', $news['news_slug'])); ?>"
+                            class="img-hover-image"> 
+                            <img src="<?php echo e(Image::url(asset('image/images') . '/' . $news['news_images'], ['width' => 100, 'height' => 100, 'crop' => true])); ?>"
+                            alt="<?php echo e($news['news_slug']); ?>" />
+                        </a>
+                    </div>
+                    <div class="review-content">
+                        <h2>
+                            <a href="<?php echo e(route('single', $news['news_slug'])); ?>"><?php echo e($news['news_title']); ?></a>
+                        </h2>
+                        <span>
+                            <p><?php echo $news['news_description']; ?></p>
+                        </span>
+                    </div>
+                    <div class="clear-float"></div>
+                    <!-- END .review-item -->
+                </div>
+                <!-- BEGIN .review-item -->
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php else: ?>
+                <div class="text-center review-item">
+                    <?php echo e('Chưa có tin tức'); ?>
+
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <!-- END .content-panel -->
+    </div>
+    <!-- BEGIN .main-nosplit -->
+    <div class="main-nosplit">
+        <!-- BEGIN .banner -->
+        <div class="banner">
+            <div class="banner-block">
+                <?php $__currentLoopData = $adv; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $adve): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php if($adve['adv_position'] === 'content'): ?>
+                    <a href="<?php echo e($adve['url_company']); ?>" target="_blank">
+                        <img src="<?php echo e(asset('image/adv/' . $adve['adv_url'])); ?>"
+                        alt="" />
+                    </a>
+                    <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+            <!-- END .banner -->
+        </div>
+    </div>
+
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

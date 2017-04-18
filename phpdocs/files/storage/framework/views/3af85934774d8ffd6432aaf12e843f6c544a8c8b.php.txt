@@ -1,0 +1,170 @@
+<?php $__env->startSection('title'); ?>
+<title><?php echo e($news['news_title']); ?></title>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('meta'); ?>
+<meta property="og:url" content="<?php echo e(url()->current()); ?>" />
+<meta property="og:type" content="http://t-cnews.cowell.com" />
+<meta property="og:title" content="<?php echo e($news['news_title']); ?>" />
+<meta property="og:description" content="<?php echo e($news['news_description']); ?>" />
+<meta property="og:image" content="<?php echo e(asset('image/images/'. $news['news_images'])); ?>"/>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="main-content-left">
+    <div class="content-article-title">
+        <ul class="breadcrumb">
+        <?php $__currentLoopData = $breadcrumb; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $br): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li><?php echo e($br); ?></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+        <div class="right-title-side">
+            <a href="<?php echo e(URL::previous()); ?>">
+                <i class="fa fa-reply"></i>
+                Quay lại trang chủ
+            </a>
+        </div>
+    </div>
+    <div class="main-article-content">
+        <h2 class="article-title">
+            <?php echo e($news['news_title']); ?>
+
+        </h2>
+        
+        <ul class="social-network">
+            <li>
+                <div class="fb-share-button"
+                    data-href="<?php echo e(url()->current()); ?>"
+                    data-layout="button_count">
+                </div>
+            </li>
+            <li>
+                <div class="g-plus" data-action="share"></div>
+            </li>
+        </ul>
+        <div class="article-photo">
+            <img class="setborder"
+                src="<?php echo e(asset('image/images/'. $news['news_images'])); ?>"
+                alt="<?php echo e($news['news_slug']); ?>" />
+        </div>
+        <!-- BEGIN .article-controls -->
+        <div class="article-controls">
+            <div class="date">
+                <div class="calendar-time">
+                    <font>Ngày đăng: </font>
+                    <font><?php echo e(date('h:m', strtotime($news['created_at']))); ?></font>
+                    <font><?php echo e(date('d-m-Y', strtotime($news['created_at']))); ?></font>
+                </div>
+            </div>
+            <div class="right-side">
+                <div>
+                    <a href="#"
+                        title="Posts by Orange Themes" rel="author" class="icon-link"><i
+                        class="fa fa-user"></i> Tác giả: <?php echo e($user['username']); ?></a> <a
+                        href="#" class="icon-link"> <i
+                        class="fa fa-comment"></i><?php echo e(CommentNews::countComment($news['id'])); ?> Bình luận
+                    </a>
+                </div>
+            </div>
+            <div class="clear-float"></div>
+            <!-- END .article-controls -->
+        </div>
+        <!-- BEGIN .shortcode-content -->
+        <div class="shortcode-content">
+            <?php echo $news['news_content']; ?>
+
+        </div>
+    </div>
+    <!-- BEGIN .main-nosplit -->
+
+    <div class="content-article-title">
+        <h3>Xem thêm</h3>
+    </div>
+    <div class="related-block">
+        <!-- BEGIN .article-array -->
+        <ul class="article-array">
+            <?php $__currentLoopData = $newsRelated; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($related['id'] != $news['id']): ?>
+                <li><a href="<?php echo e(route('single', $related['news_slug'])); ?>">
+                    <?php echo e($related['news_title']); ?>
+
+                    </a>
+                    <a href="#"
+                    class="comment-icon"> <i class="fa fa-comment"></i>
+                    <?php echo e(CommentNews::countComment($related['id'])); ?>
+
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <!-- END .article-array -->
+        </ul>
+        <div class="split-line"></div>
+    </div>
+    <div class="content-article-title">
+        <h3>Ý kiến bạn đọc (<?php echo e(CommentNews::countComment($news['id'])); ?>)</h3>
+        <div class="right-title-side">
+            <a href="#respond"><i class="fa fa-pencil"></i>Viết bình luận</a>
+        </div>
+    </div>
+    <div class="comment-block">
+        <?php $__currentLoopData = $comment; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comm): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="commment-content">
+            <strong class="user-nick">
+                <a href="#"><?php echo e($comm['comment_name']); ?></a>
+            </strong>
+            <span class="time-stamp"> <?php echo e(date('d-m-Y, h:m', strtotime($news['created_at']))); ?></span>
+            <div class="comment-text">
+                <p><?php echo e($comm['comment_content']); ?></p>
+            </div>
+        </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+    <div class="content-article-title">
+        <h3>Bình luận</h3>
+    </div>
+    <a href="#" name="respond"></a>
+    <div id="respond" class="comment-respond">
+        <h3 id="reply-title" class="comment-reply-title">
+            <small><a rel="nofollow" id="cancel-comment-reply-link"
+                href="index.html#respond" style="display: none;">Click here to
+                    cancel reply.</a></small>
+        </h3>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-9">
+                <form action="<?php echo e(route('comment')); ?>" method="POST" id="add_comment">
+                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                    <input type="hidden" name="comment_news_id" id="comment_news_id" value="<?php echo e($news['id']); ?>">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" name="comment_name" class="form-control" id="comment_name" placeholder="Tên nặc danh">
+                    </div>
+                    <div class="form-group">
+                        <label>Ý kiến của bạn</label>
+                        <textarea class="form-control" name="comment_content" placeholder="Ý kiến của bạn..." rows="3" id="comment_content"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right btn-sm">Gửi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- #respond -->
+    <!-- END .main-content-left -->
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1320961527966423";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'vi'}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

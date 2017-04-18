@@ -1,0 +1,65 @@
+    <div class="header">
+    <!-- BEGIN .header-very-top -->
+    <div class="header-very-top">
+        <!-- BEGIN .wrapper -->
+        <div class="wrapper">
+            <div class="left">
+                <ul class="ot-menu very-top-menu load-responsive" rel="Top Menu">
+                    <li><a href="<?php echo e(route('index')); ?>" class="icon-text"><i class="fa fa-home"></i></a></li>
+                    <?php if(Auth::check()): ?>
+                        <li id=""
+                            class="menu-item menu-item-type-post_type menu-item-object-page single"><a
+                            href="<?php echo e(route('admin.home')); ?>">Trang quản trị</a></li>
+                    <?php else: ?>
+                        <li id=""
+                            class="menu-item menu-item-type-post_type menu-item-object-page single"><a
+                            href="<?php echo e(route('login')); ?>">Đăng nhập</a></li>
+                        <li id=""
+                            class="menu-item menu-item-type-custom menu-item-object-custom single"><a
+                            href="<?php echo e(route('register')); ?>">Đăng ký</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <div class="right">
+                <div class="weather-report">
+                    <span>Thời tiết</span> <b>Việt Nam, Hà Nội</b> <img
+                        src="<?php echo e(asset('image/weather/'.getIcon())); ?>"
+                        alt="Vietnam, Hanoi" width="20px"/> 
+                        <font class="weather-meter" style="background: #e87c2d;"><?php echo e(getTemperature()); ?>&deg;C</font>
+                </div>
+            </div>
+            <div class="clear-float"></div>
+        </div>
+        <div class="double-split"></div>
+        <!-- END .header-very-top -->
+    </div>
+    <!-- BEGIN .header-middle -->
+    <div class="header-middle">
+        <div class="wrapper">
+            <div class="logo-image">
+                <h1>t-cnews</h1>
+                <a href="<?php echo e(route('index')); ?>"><img class="logo"
+                    src="<?php echo e(asset('image/imgTheme/logo.png')); ?>"
+                    alt="t-cnews" /></a>
+            </div>
+            <div class="banner">
+                <div class="banner-block">
+                    <?php $__currentLoopData = $adv; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $adve): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($adve['adv_position'] === 'header'): ?>
+                        <a href="<?php echo e($adve['url_company']); ?>" target="_blank">
+                            <img src="<?php echo e(asset('image/adv/' . $adve['adv_url'])); ?>"
+                            alt="" />
+                        </a>
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            </div>
+            <div class="clear-float"></div>
+        </div>
+        <!-- END .header-middle -->
+    </div>
+    <!-- BEGIN .header-menu -->
+    <?php echo $__env->make('layouts.mainMenu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <!-- END .header -->
+</div>
+

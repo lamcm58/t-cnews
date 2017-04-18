@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="_token" content="<?php echo e(csrf_token()); ?>"/>
+<head>
+<!-- Meta Tags -->
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+<?php echo $__env->yieldContent("meta"); ?>
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="<?php echo e(asset('favicon_ie9.ico')); ?>" type="image/x-icon" />
+
+<?php echo $__env->yieldContent('title'); ?>
+
+
+<link rel='stylesheet' id='google-fonts-2-css' href='http://fonts.googleapis.com/css?family=Titillium+Web&amp;subset=latin&amp;ver=4.7.3' type='text/css' media='all' />
+<link rel='stylesheet' id='reset-css' href='<?php echo e(asset('css/reset.css')); ?>' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='<?php echo e(asset('css/font-awesome.min.css')); ?>' type='text/css' media='all' />
+<link rel='stylesheet' id='main-stylesheet-css' href='<?php echo e(asset('css/main-stylesheet.css?ver=4.7.3')); ?>' type='text/css' media='all' />
+
+<link rel='stylesheet' id='dat-menu-css' href='<?php echo e(asset('css/dat-menu.css?ver=4.7.3')); ?>' type='text/css' media='all' />
+<link rel='stylesheet' id='demo-settings-css' href='<?php echo e(asset('css/demo-settings.css?ver=4.7.3')); ?>' type='text/css' media='all' />
+
+<link rel='stylesheet' id='responsive-css' href='<?php echo e(asset('css/responsive.css?ver=4.7.3')); ?>' type='text/css' media='all' />
+
+</head>
+<!-- BEGIN body -->
+
+<body
+    class="home-page home page-template page-template-template-homepage page-template-template-homepage-php page page-id-4 wpb-js-composer js-comp-ver-4.3.4 vc_responsive no-js">
+    <!-- BEGIN .boxed -->
+    <div class="boxed">
+        <!-- BEGIN .header -->
+        <?php echo $__env->make('layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <!-- BEGIN .content -->
+        <div class="content">
+            <!-- BEGIN .wrapper -->
+            <div class="wrapper">
+                <!-- BEGIN .breaking-news -->
+                <div class="breaking-news">
+                    <div class="breaking-title">
+                        <span class="breaking-icon">&nbsp;</span><b>Mới nhất</b>
+                        <div class="the-corner"></div>
+                    </div>
+                    <div class="breaking-block">
+                        <ul>
+                            <?php $__currentLoopData = $breaking; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $break): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><a
+                                href="<?php echo e(route('single', $break['news_slug'])); ?>">
+                                <?php echo e($break['news_title']); ?></a>
+                                <span>
+                                    <?php echo e($break['news_description'] . ' ...'); ?>
+
+                                </span>
+                            </li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+                    <div class="breaking-controls">
+                        <a href="#" class="breaking-arrow-left">&nbsp;</a><a href="#"
+                            class="breaking-arrow-right">&nbsp;</a>
+                        <div class="clear-float"></div>
+                        <div class="the-corner"></div>
+                    </div>
+                    <!-- END .breaking-news -->
+                </div>
+                <!-- BEGIN .main-content-left -->
+                <?php echo $__env->yieldContent('content'); ?>
+                <!-- BEGIN .main-content-right -->
+                <?php echo $__env->make('layouts.sidebarRight', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                <div class="clear-float"></div>
+                <!-- END .wrapper -->
+            </div>
+            <!-- BEGIN .content -->
+        </div>
+        <!-- BEGIN .footer -->
+        <?php echo $__env->make('layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <!-- END .boxed -->
+    </div>
+
+
+    <script type='text/javascript' src='<?php echo e(asset('js/jquery.js?ver=1.12.4')); ?>'></script>
+
+    <script type='text/javascript' src='<?php echo e(asset('js/jquery-cookie.min.js?ver=2.7.4')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/jquery-scroll-to.min.js?ver=2.7.4')); ?>'></script>
+
+    <script type='text/javascript' src='<?php echo e(asset('js/buddypress.min.js?ver=2.7.4')); ?>'></script>
+    <script type='text/javascript' src='http://legatus.orange-themes.com/wp-admin/admin-ajax.php?action=ot_dynamic_js&amp;ver=1'></script>
+
+    <!-- slide js -->
+    <script type='text/javascript' src='<?php echo e(asset('js/effect.min.js?ver=1.11.4')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/effect-slide.min.js?ver=1.11.4')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/theme-scripts.js?ver=4.7.3')); ?>'></script>
+
+    <!-- is sroll -->
+    <script type='text/javascript' src='<?php echo e(asset('js/iscroll.js?ver=4.7.3')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/modernizr.custom.50878fe9d.js?ver=4.7.3')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/dat-menu.js?ver=4.7.3')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/custum.js')); ?>'></script>
+    <script type='text/javascript' src='<?php echo e(asset('js/custum-ajax.js')); ?>'></script>
+    <!-- END body -->
+    <?php echo $__env->yieldContent('js'); ?>
+</body>
+<!-- END html -->
+
+</html>
+

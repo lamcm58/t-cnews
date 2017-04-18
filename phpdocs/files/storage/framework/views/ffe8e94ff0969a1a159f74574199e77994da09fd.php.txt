@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="<?php echo e(config('app.locale')); ?>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta, title, CSS, favicons, etc. -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="<?php echo e(asset('favicon_ie9.ico')); ?>">
+
+<title>Đăng ký</title>
+
+<!-- Bootstrap -->
+<link href="<?php echo e(asset('admin/vendors/bootstrap/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="<?php echo e(asset('admin/vendors/font-awesome/css/font-awesome.min.css')); ?>" rel="stylesheet">
+<!-- NProgress -->
+<link href="<?php echo e(asset('admin/vendors/nprogress/nprogress.css')); ?>" rel="stylesheet">
+<!-- Animate.css -->
+<link href="<?php echo e(asset('admin/vendors/animate.css/animate.min.css')); ?>" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="<?php echo e(asset('admin/build/css/custom.min.css')); ?>" rel="stylesheet">
+
+<!-- datepicker -->
+<link href="<?php echo e(asset('datepicker/bootstrap-datepicker.css')); ?>" rel="stylesheet">
+
+<link href="<?php echo e(asset('admin/build/css/customTheme.css')); ?>" rel="stylesheet">
+</head>
+
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div id="register" class="animate form login_form">
+                <section class="login_content register_content">
+                    <form action="<?php echo e(route('register')); ?>" method="POST">
+                        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                        <h1>Đăng ký</h1>
+                        <div class="register_input">
+                            <input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo e(old('username')); ?>"/>
+                            <?php if($errors->first('username')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('username')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="register_input">
+                            <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo e(old('email')); ?>"/>
+                            <?php if($errors->first('email')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('email')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="register_input">
+                            <input type="password" name="password" class="form-control" placeholder="Password" />
+                            <?php if($errors->first('password')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('password')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="register_input">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="Repassword" />
+                            <?php if($errors->first('repassword')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('repassword')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="register_input">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone" value="<?php echo e(old('phone')); ?>"/>
+                            <?php if($errors->first('phone')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('phone')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="register_input">
+                            <input name="birthday" class="form-control" id="dob" placeholder="Birthday" value="<?php echo e(old('birthday')); ?>">
+                            <?php if($errors->first('birthday')): ?>
+                            <p class="text-danger"><?php echo e($errors->first('birthday')); ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <br/>
+                        <div>
+                            <button type="submit" class="btn btn-default">Đăng ký</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">
+                                Đã có tài khoản? <a href="<?php echo e(route('login')); ?>" class="to_register"> Đăng nhập</a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1>
+                                    <i class="fa fa-firefox"></i> t-cnews.cowell
+                                </h1>
+                                <p>©2017 All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="<?php echo e(asset('admin/vendors/jquery/dist/jquery.min.js')); ?>"></script>
+    <!-- Bootstrap -->
+    <script src="<?php echo e(asset('admin/vendors/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
+    <!-- datepicker -->
+    <script src="<?php echo e(asset('datepicker/bootstrap-datepicker.js')); ?>"></script>
+    <script>
+      $("#dob").datepicker();
+    </script>
+</body>
+</html>
+

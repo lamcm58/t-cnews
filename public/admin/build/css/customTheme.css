@@ -1,0 +1,15 @@
+.top_nav .dropdown-menu li{
+	overflow: hidden;
+}
+
+.register_content input{
+	margin: 0 0 5px !important;
+}
+
+.register_content .register_input{
+	margin-bottom: 25px;
+}
+
+.register_content .register_input p{
+	text-align: left;
+}

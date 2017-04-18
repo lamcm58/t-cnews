@@ -1,0 +1,54 @@
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="javascript:;"
+                    class="user-profile dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false">
+                    <?php if(Auth::user()->user_image != ''): ?>
+                        <img src="<?php echo e(asset('image/img/'.Auth::user()->user_image)); ?>" alt="Avatar" title="Change the avatar">
+                    <?php else: ?>
+                        <img src="<?php echo e(asset('image/img/admin.png')); ?>" alt="Avatar" title="Change the avatar">
+                    <?php endif; ?>
+                    <?php echo e(Auth::user()->user_fullName); ?>
+
+                        <span class=" fa fa-angle-down"></span>
+                </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li><a href="<?php echo e(route('user.show')); ?>">Thông tin cá nhân</a></li>
+                        <li><a href="<?php echo e(route('logout')); ?>"><i class="fa fa-sign-out pull-right"></i>
+                                Thoát</a></li>
+                    </ul></li>
+
+                <li role="presentation" class="dropdown"><a href="javascript:;"
+                    class="dropdown-toggle info-number" data-toggle="dropdown"
+                    aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span
+                        class="badge bg-green"><?php echo e(AdminCountNews::countNewsNotCheck()); ?></span>
+                </a>
+                <?php if(Auth::user()->user_role == 1): ?>
+                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list"
+                        role="menu">
+                        <?php $news = AdminCountNews::getNewsNotCheck(); ?>
+                        <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li>
+                            <a href="<?php echo e(route('news.view', $data['news_slug'])); ?>"><strong> <?php echo $data['news_title']; ?> </strong></a>
+                        </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <li>
+                            <div class="text-center">
+                                <a href="<?php echo e(route('news.newsNotCheck')); ?>"> <strong>Xem tất cả tin chưa duyệt</strong> <i
+                                    class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                <?php endif; ?>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
